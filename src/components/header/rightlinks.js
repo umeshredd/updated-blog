@@ -82,17 +82,6 @@ class RightLinks extends React.Component {
     return (
       <div>
         <ClickAwayListener onClickAway={this.handleClose}>
-          <Button
-            color="transparent"
-            aria-label="More"
-            aria-owns={open ? "long-menu" : undefined}
-            aria-haspopup="true"
-            className={classes.navLink}
-            onClick={this.handleClick}
-          >
-            <Person className={classes.icons} />
-            <Typography variant="caption">Chnage User</Typography>
-          </Button>
           <Menu
             id="long-menu"
             anchorEl={anchorEl}
@@ -141,6 +130,19 @@ class RightLinks extends React.Component {
               {" "}
             </Avatar>
             Welcome {selected}
+            <Button
+              color="transparent"
+              aria-label="More"
+              aria-owns={open ? "long-menu" : undefined}
+              aria-haspopup="true"
+              className={classes.navLink}
+              onClick={this.handleClick}
+              style={{ padding: 0 }}
+            >
+              <Typography variant="caption">
+                <MoreVertIcon className={classes.icons} />
+              </Typography>
+            </Button>
           </span>
         </Typography>
       </div>
