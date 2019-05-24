@@ -136,7 +136,7 @@ class RightLinks extends React.Component {
               alt={selected}
               src={img}
               className={classes.bigAvatar}
-              style={{ width: 30, height: 30 }}
+              style={{ width: 30, height: 30, marginRight: 5 }}
             >
               {" "}
             </Avatar>
