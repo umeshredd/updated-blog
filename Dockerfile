@@ -5,4 +5,4 @@ RUN npm install && npm install express && npm install path
 COPY . /home/niveus/blog/
 RUN npm run build
 CMD node index.js
-EXPOSE 8080
+EXPOSE 3000
