@@ -1,10 +1,10 @@
 steps:
   # build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/rugged-reality-240604/cloud-demo', '.']
+  args: ['build', '-t', 'gcr.io/rugged-reality-240604/cloud', '.']
   # push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/rugged-reality-240604/cloud-demo']
+  args: ['push', 'gcr.io/rugged-reality-240604/cloud']
   # Deploy container image to Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['beta','run','deploy','cloud-demo', '--image', 'gcr.io/rugged-reality-240604/cloud-demo', '--region', 'us-central1', '--quiet']
+  args: ['beta','run','deploy','cloud', '--image', 'gcr.io/rugged-reality-240604/cloud', '--region', 'us-central1', '--quiet']
