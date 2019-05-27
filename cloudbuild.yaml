@@ -8,6 +8,5 @@ steps:
   # Deploy container image to Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
   args: ['beta','run','deploy','cloud', '--image', 'gcr.io/rugged-reality-240604/cloud', '--region', 'us-central1', '--quiet']
-  images:
-- gcr.io/rugged-reality-240604/cloud
+  
 
