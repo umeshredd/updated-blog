@@ -29,7 +29,7 @@ import Button from "../CustomButtons/Button";
 import headerLinksStyle from "../../assets/jss/material-kit-react/components/headerLinksStyle";
 
 const ITEM_HEIGHT = 48;
-const options = ["Jhon Doe", "Fred Jhon", "Alfred Smith"];
+const options = ["umesh", "Jhon deo", "Fred deo"];
 
 class RightLinks extends React.Component {
   constructor(props) {
