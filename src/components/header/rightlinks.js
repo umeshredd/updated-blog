@@ -29,7 +29,7 @@ import Button from "../CustomButtons/Button";
 import headerLinksStyle from "../../assets/jss/material-kit-react/components/headerLinksStyle";
 
 const ITEM_HEIGHT = 48;
-const options = ["Jhon Doe", "Fred Jhon", "Alfred Smith"];
+const options = ["umesh", "Jhon deo", "Fred deo"];
 
 class RightLinks extends React.Component {
   constructor(props) {
@@ -70,11 +70,11 @@ class RightLinks extends React.Component {
     const open = Boolean(anchorEl);
 
     let img;
-    if (selected === "Fred Jhon") {
+    if (selected === "umesh") {
       img = img1;
-    } else if (selected === "John Doe") {
+    } else if (selected === "Jhon deo") {
       img = img2;
-    } else if (selected === "Alfred Smith") {
+    } else if (selected === "Fred deo") {
       img = img3;
     } else {
       img = img3;
