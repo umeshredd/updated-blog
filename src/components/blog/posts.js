@@ -19,8 +19,8 @@ import CardBody from "../Card/CardBody";
 class Posts extends React.Component {
   componentDidMount() {
     // check for user auth
-    console.log(Object.keys(this.props.token.user).length);
-    if (Object.keys(this.props.token.user).length > 1) {
+    const usrLen = Object.keys(this.props.token.user).length
+    if (usrLen == 0) {
       this.props.loginUser("1");
     }
 
