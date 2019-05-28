@@ -16,7 +16,7 @@ import {
 
 export const checkLikeService = DATA => dispatch => {
   axios
-    .get(`${LIKEEND}api/posts/`)
+    .get(`${LIKEEND}api/`)
     .then(res => {
       console.log(
         "-------------------check service like----------------------"
@@ -47,7 +47,7 @@ export const checkLikeService = DATA => dispatch => {
 export const checkCommentService = () => dispatch => {
   console.log("comment Serice------");
   axios
-    .get(`${COMMENTEND}api/posts/`)
+    .get(`${COMMENTEND}api/`)
     .then(res => {
       console.log(
         "-------------------check service comment----------------------"
