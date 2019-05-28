@@ -1,6 +1,6 @@
-export const ENDPOINT = "http://localhost:5000/";
-export const LIKEEND = "http://localhost:9000/";
-export const COMMENTEND = "http://localhost:1200/";
+export const ENDPOINT = "https://cloud-back-rdg7uidwzq-uc.a.run.app";
+export const LIKEEND = "https://cloud-likeend-rdg7uidwzq-uc.a.run.app";
+export const COMMENTEND = "https://cloud-commentend-rdg7uidwzq-uc.a.run.app";
 
 // export default {
 //     ENDPOINT,
