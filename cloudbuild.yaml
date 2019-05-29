@@ -1,12 +1,11 @@
 steps:
   # build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/niveusgcp/cloud', '.']
+  args: ['build', '-t', 'gcr.io/niveusgcp/cloud', '--build-arg', 'URL=https://cloud-likeend-rdg7uidwzq-uc.a.run.app', '.']
   # push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/niveusgcp/cloud']
   # Deploy container image to Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['beta','run','deploy','cloud', '--image', 'gcr.io/niveusgcp/cloud', '--region', 'us-central1', '--quiet']
+  args: ['beta','run','deploy','cloud', '--image', 'gcr.io/niveusgcp/cloud', '--region', 'us-central1', '--quiet'] 
   
-
