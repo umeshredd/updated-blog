@@ -7,4 +7,4 @@ steps:
   args: ['push', 'gcr.io/niveusgcp/cloud']
   # Deploy container image to Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['beta','run','deploy','cloud','--set-env-vars','an_env_var="https://cloud-likeend-rdg7uidwzq-uc.a.run.app/"', '--image', 'gcr.io/niveusgcp/cloud', '--region', 'us-central1', '--quiet']
+  args: ['beta','run','deploy','cloud','--image', 'gcr.io/niveusgcp/cloud', '--region', 'us-central1', '--quiet']
