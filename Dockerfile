@@ -16,14 +16,7 @@ FROM base AS dependencies
 # install node packages
 RUN npm set progress=false && npm config set depth 0
 # install ALL node_modules, including 'devDependencies'
-RUN npm install
- 
-#
-# ---- Test ----
-# run linters, setup and tests
-FROM dependencies AS test
-COPY . .
-RUN  npm run lint && npm run setup && npm run test
+RUN npm install && npm install express && npm install path
  
 #
 # ---- Release ----
