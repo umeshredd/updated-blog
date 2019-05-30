@@ -22,9 +22,11 @@ RUN npm install && npm install express && npm install path
 # ---- Release ----
 FROM base AS release
 # copy production node_modules
-COPY --from=dependencies home/niveus/blog/node_modules ./node_modules
+COPY --from=dependencies /home/niveus/blog/node_modules ./node_modules
 # copy app sources
-COPY . .
+RUN mkdir build 
+COPY ./index.js .
+COPY ./build ./build
 # expose port and define CMD
 EXPOSE 8080
 CMD node index.js
