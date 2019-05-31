@@ -14,12 +14,12 @@ import {
 
 const headerStyle = {
   avatar: {
-    margin: 10,
+    margin: 10
   },
   bigAvatar: {
     margin: 10,
     width: 60,
-    height: 60,
+    height: 60
   },
   appBar: {
     display: "flex",
@@ -50,10 +50,7 @@ const headerStyle = {
   container: {
     ...container,
     minHeight: "50px",
-    justifyContent: "space-between",
-    display: "flex",
-    flexWrap: "nowrap",
-    marginTop: 100
+    flexWrap: "nowrap"
   },
   flex: {
     flex: 1

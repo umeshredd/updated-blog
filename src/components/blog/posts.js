@@ -7,7 +7,7 @@ import PostFeed from "./postFeed";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { loginUser } from "../../actions/authActions";
-
+import Post from "./post";
 import {
   getPosts,
   checkCommentService,
@@ -19,8 +19,8 @@ import CardBody from "../Card/CardBody";
 class Posts extends React.Component {
   componentDidMount() {
     // check for user auth
-    const usrLen = Object.keys(this.props.token.user).length
-    if (usrLen == 0) {
+    const usrLen = Object.keys(this.props.token.user).length;
+    if (usrLen === 0) {
       this.props.loginUser("1");
     }
 
@@ -39,7 +39,6 @@ class Posts extends React.Component {
     // load spinner else load the post
     const { classes, post } = this.props;
     const { posts, loading } = post;
-    console.log(posts);
     let checkd = false;
     let postContents;
 
@@ -57,10 +56,10 @@ class Posts extends React.Component {
       );
     }
     return (
-      <Card className={classes.container}>
-        <PostForm />
+      <div className={classes.container}>
+        <Post />
         {postContents}
-      </Card>
+      </div>
     );
   }
 }

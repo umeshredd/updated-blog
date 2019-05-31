@@ -6,9 +6,13 @@ import { Link } from "react-router-dom";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+// import Menu from "@material-ui/core/Menu";
+// import MenuItem from "@material-ui/core/MenuItem";
+// import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Search from "@material-ui/icons/Search";
+import NotificationsNone from "@material-ui/icons/NotificationsNone";
+import Add from "@material-ui/icons/Add";
+
 import Typography from "@material-ui/core/Typography";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { connect } from "react-redux";
@@ -81,7 +85,7 @@ class RightLinks extends React.Component {
     }
     return (
       <div>
-        <ClickAwayListener onClickAway={this.handleClose}>
+        {/* <ClickAwayListener onClickAway={this.handleClose}>
           <Menu
             id="long-menu"
             anchorEl={anchorEl}
@@ -114,23 +118,49 @@ class RightLinks extends React.Component {
               </MenuItem>
             ))}
           </Menu>
-        </ClickAwayListener>
+        </ClickAwayListener> */}
         <Typography
           variant="overline"
           inline={true}
           style={{ paddingRight: 10 }}
         >
-          <span style={{ display: "flex", justifyContent: "base-line" }}>
+          <span style={{ display: "flex", alignItems: "center" }}>
+            <Button
+              className={classes.navLink}
+              style={{
+                height: 40,
+                justifyContent: "center",
+                aliginContents: "center",
+                backgroundColor: "#73397e",
+                color: "#fff",
+                marginRight: 15
+              }}
+            >
+              <Link to="/Postform">
+              <Typography
+                variant="caption"
+                align="center"
+                style={{ color: "#fff" }}
+              >
+                <Add className={classes.icons} />
+                Add Story{" "}
+              </Typography>
+              </Link>
+             
+            </Button>
+            <Search className={classes.icons} style={{ marginRight: 15 }} />
+            <NotificationsNone
+              className={classes.icons}
+              style={{ marginRight: 15 }}
+            />
+
             <Avatar
               alt={selected}
               src={img}
               className={classes.bigAvatar}
               style={{ width: 30, height: 30, marginRight: 5 }}
-            >
-              {" "}
-            </Avatar>
-            Welcome {selected}
-            <Button
+            />
+            {/* <Button
               color="transparent"
               aria-label="More"
               aria-owns={open ? "long-menu" : undefined}
@@ -142,7 +172,7 @@ class RightLinks extends React.Component {
               <Typography variant="caption">
                 <MoreVertIcon className={classes.icons} />
               </Typography>
-            </Button>
+            </Button> */}
           </span>
         </Typography>
       </div>

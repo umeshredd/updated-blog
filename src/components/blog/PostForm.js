@@ -1,11 +1,9 @@
 import React from "react";
-import Card from "../Card/Card";
 import CardBody from "../Card/CardBody";
 import Cardhead from "../Card/CardHeader";
-import CardFoot from "../Card/CardFooter";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
-import { PermIdentity, People } from "@material-ui/icons";
+import { PermIdentity } from "@material-ui/icons";
 import CustomInput from "../CustomInput/CustomInput";
 import Button from "../CustomButtons/Button";
 import GridContainer from "../Grid/GridContainer";
@@ -14,11 +12,10 @@ import PropTypes from "prop-types";
 import { addPost } from "../../actions/postActions";
 import { connect } from "react-redux";
 
-import Avatar from "@material-ui/core/Avatar";
-
-import img1 from "../../assets/img/avatar1.jpeg";
-import img2 from "../../assets/img/avatar2.jpeg";
-import img3 from "../../assets/img/avatar3.jpeg";
+// import Avatar from "@material-ui/core/Avatar";
+// import img1 from "../../assets/img/avatar1.jpeg";
+// import img2 from "../../assets/img/avatar2.jpeg";
+// import img3 from "../../assets/img/avatar3.jpeg";
 
 import headerStyle from "../../assets/jss/material-kit-react/components/blog/blogStyle";
 
@@ -36,6 +33,7 @@ class PostForm extends React.Component {
     console.log(this.props);
     const newPost = {
       text: this.state.text,
+      title: this.state.title,
       name: user.name,
       avatar: user.avatar,
       id: user.id
@@ -74,6 +72,22 @@ class PostForm extends React.Component {
           </Typography>
         </Cardhead>
         <CardBody>
+          <CustomInput
+            labelText="Title"
+            id="message"
+            formControlProps={{
+              fullWidth: true,
+              className: classes.textArea
+            }}
+            inputProps={{
+              // multiline: true,
+              rows: 5,
+              value: this.state.title
+            }}
+            onInputChange={e => {
+              this.setState({ text: e });
+            }}
+          />
           <CustomInput
             labelText="Enter Your Post Here"
             id="message"
