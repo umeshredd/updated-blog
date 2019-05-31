@@ -13,7 +13,7 @@ import {
   checkCommentService,
   checkLikeService
 } from "../../actions/postActions";
-import Card from "../Card/Card";
+
 import CardBody from "../Card/CardBody";
 
 class Posts extends React.Component {

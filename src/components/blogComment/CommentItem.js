@@ -12,6 +12,7 @@ import { withStyles } from '@material-ui/core/styles';
 import img1 from "../../assets/img/avatar1.jpeg"
 import img2 from "../../assets/img/avatar2.jpeg"
 import img3 from "../../assets/img/avatar3.jpeg"
+import { withRouter } from 'react-router-dom'
 
 const styles = {
   avatar: {
@@ -22,7 +23,7 @@ const styles = {
     width: 30,
     height: 30,
   },
-  
+
   orangeAvatar: {
     margin: 10,
     color: '#fff',
@@ -44,11 +45,11 @@ class CommentItem extends Component {
   render() {
     const { comment, postId, auth, classes } = this.props;
     let img;
-    if(comment.name === "Fred Jhon"){
+    if (comment.name === "Fred Jhon") {
       img = img1;
     }
-    else if(comment.name ==="John Doe"){
-      img=img2
+    else if (comment.name === "John Doe") {
+      img = img2
     }
     else {
       img = img3
@@ -56,10 +57,10 @@ class CommentItem extends Component {
     return (
 
       <Grid container alignItems="center" >
-       <Avatar alt={comment.name} src={img} className={classes.bigAvatar} />
+        <Avatar alt={comment.name} src={img} className={classes.bigAvatar} />
         <Typography variant="caption">{comment.text}<br></br>{new Date(comment.date).toLocaleDateString()} {new Date(comment.date).toLocaleTimeString()}</Typography>
-    </Grid>
-      
+      </Grid>
+
     );
   }
 }
@@ -74,7 +75,7 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   {}
-)(withStyles(styles)(CommentItem));
+)(withStyles(styles)(CommentItem)));

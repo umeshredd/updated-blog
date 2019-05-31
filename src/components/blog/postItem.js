@@ -15,6 +15,7 @@ import Card from "../Card/Card";
 import CardFoot from "../Card/CardFooter";
 import Cardhead from "../Card/CardHeader";
 import headerStyle from "../../assets/jss/material-kit-react/components/blog/blogStyle";
+import { withRouter } from 'react-router-dom'
 
 import CommentForm from "../blogComment/CommentForm";
 import CommentFeed from "../blogComment/CommentFeed";
@@ -244,7 +245,7 @@ const mapStateToProps = state => ({
   service: state.post
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   { deletePost, addLike, removeLike, checkCommentService, checkLikeService }
-)(withStyles(headerStyle)(PostItem));
+)(withStyles(headerStyle)(PostItem)));

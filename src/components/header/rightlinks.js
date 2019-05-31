@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
+import { withRouter } from 'react-router-dom'
 
 // import Menu from "@material-ui/core/Menu";
 // import MenuItem from "@material-ui/core/MenuItem";
@@ -19,6 +20,7 @@ import { connect } from "react-redux";
 import { loginUser, logoutUser } from "../../actions/authActions";
 
 import Avatar from "@material-ui/core/Avatar";
+import cross from "../../assets/img/cross.png";
 
 import img1 from "../../assets/img/avatar1.jpeg";
 import img2 from "../../assets/img/avatar2.jpeg";
@@ -136,17 +138,21 @@ class RightLinks extends React.Component {
                 marginRight: 15
               }}
             >
-              <Link to="/Postform">
-              <Typography
-                variant="caption"
-                align="center"
-                style={{ color: "#fff" }}
-              >
-                <Add className={classes.icons} />
-                Add Story{" "}
-              </Typography>
-              </Link>
-             
+              <div style={{ display: 'flex' }}>
+                <Link to="/PostForm">
+
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: "#fff" }}
+                  >
+                    <Add className={classes.icons} />
+                    Add Story{" "}
+                  </Typography>
+
+                </Link>
+              </div>
+
             </Button>
             <Search className={classes.icons} style={{ marginRight: 15 }} />
             <NotificationsNone
@@ -185,7 +191,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   { loginUser, logoutUser }
-)(withStyles(headerLinksStyle)(RightLinks));
+)(withStyles(headerLinksStyle)(RightLinks)));

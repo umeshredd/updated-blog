@@ -3,7 +3,9 @@ import CardBody from "../Card/CardBody";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { addPost } from "../../actions/postActions";
 import { connect } from "react-redux";
-import blog from "./../../assets/img/blogging_image.webp";
+import blog from "./../../assets/img/banner.png";
+import { withRouter } from 'react-router-dom'
+
 // import Avatar from "@material-ui/core/Avatar";
 
 // import img1 from "../../assets/img/avatar1.jpeg";
@@ -12,7 +14,7 @@ import blog from "./../../assets/img/blogging_image.webp";
 
 import headerStyle from "../../assets/jss/material-kit-react/components/blog/blogStyle";
 
-class PostForm extends React.Component {
+class PostHeader extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,7 +37,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   { addPost }
-)(withStyles(headerStyle)(PostForm));
+)(withStyles(headerStyle)(PostHeader)));

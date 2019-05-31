@@ -11,6 +11,9 @@ import GridItem from "../Grid/GridItem";
 import PropTypes from "prop-types";
 import { addPost } from "../../actions/postActions";
 import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom'
+
+import blog from "./../../assets/img/static-background.png";
 
 // import Avatar from "@material-ui/core/Avatar";
 // import img1 from "../../assets/img/avatar1.jpeg";
@@ -48,7 +51,7 @@ class PostForm extends React.Component {
       text: e.target.value
     });
   };
-  messageChanges = e => {};
+  messageChanges = e => { };
   render() {
     const { classes } = this.props;
     let name = this.props.name;
@@ -58,7 +61,11 @@ class PostForm extends React.Component {
     }
 
     return (
-      <CardBody>
+      <CardBody style={{ padding: 0 }}>
+        <div>
+          <img src={blog} style={{ width: "100%" }} />
+
+        </div>
         <Cardhead>
           <Typography variant="caption" align="left">
             <div style={{ display: "flex", padding: 25, alignItems: "center" }}>
@@ -136,7 +143,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   { addPost }
-)(withStyles(headerStyle)(PostForm));
+)(withStyles(headerStyle)(PostForm)));
