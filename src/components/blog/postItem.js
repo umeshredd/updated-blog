@@ -155,7 +155,9 @@ class PostItem extends Component {
                   </span>
                 ) : null}
                 {CommentService ? (
-                  <span style={{ width: "100%" }}>
+                  <span
+                    style={{ width: "100%", position: "absolute", top: 115 }}
+                  >
                     <Typography
                       variant="caption"
                       inline={true}
