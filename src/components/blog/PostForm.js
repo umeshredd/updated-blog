@@ -11,10 +11,10 @@ import GridItem from "../Grid/GridItem";
 import PropTypes from "prop-types";
 import { addPost } from "../../actions/postActions";
 import { connect } from "react-redux";
-import { withRouter } from 'react-router-dom'
-
+import { withRouter } from "react-router-dom";
+import HeaderMenu from "./../common/Header";
 import blog from "./../../assets/img/static-background.png";
-
+import Header from "./../header/header";
 // import Avatar from "@material-ui/core/Avatar";
 // import img1 from "../../assets/img/avatar1.jpeg";
 // import img2 from "../../assets/img/avatar2.jpeg";
@@ -27,23 +27,37 @@ class PostForm extends React.Component {
     super(props);
     this.state = {
       text: "",
-      loading: false
+      loading: false,
+      title: ""
     };
   }
 
   OnSubmit = () => {
-    const user = this.props.auth;
+    let user = this.props.auth;
     console.log(this.props);
-    const newPost = {
-      text: this.state.text,
-      title: this.state.title,
-      name: user.name,
-      avatar: user.avatar,
-      id: user.id
-    };
+    if (String(this.state.text).trim() === "") {
+      return false;
+    } else {
+      if (Object.keys(user).length === 0) {
+        const localUser = localStorage.getItem("currentUser");
+        if (localUser !== null || localUser !== undefined) {
+          user = JSON.parse(localUser);
+          console.log(user);
+        }
+      }
 
-    this.props.addPost(newPost);
-    this.setState({ text: "" });
+      const newPost = {
+        text: this.state.text,
+        title: this.state.title,
+        name: user.name,
+        avatar: user.avatar,
+        id: user.id
+      };
+
+      this.props.addPost(newPost);
+      this.setState({ text: "", title: "" });
+      this.props.history.push("/");
+    }
   };
 
   onInputChange = e => {
@@ -51,7 +65,7 @@ class PostForm extends React.Component {
       text: e.target.value
     });
   };
-  messageChanges = e => { };
+  messageChanges = e => {};
   render() {
     const { classes } = this.props;
     let name = this.props.name;
@@ -62,23 +76,40 @@ class PostForm extends React.Component {
 
     return (
       <CardBody style={{ padding: 0 }}>
+        <Header />
+        <HeaderMenu />
         <div>
-          <img src={blog} style={{ width: "100%" }} />
-
+          <img
+            src={blog}
+            style={{ width: "100%", position: "absolute", top: 130 }}
+          />
         </div>
-        <Cardhead>
-          <Typography variant="caption" align="left">
-            <div style={{ display: "flex", padding: 25, alignItems: "center" }}>
-              {" "}
-              <PermIdentity
-                className={classes.icons}
-                style={{ marginRight: 15 }}
-              />
-              {name}
-            </div>
-          </Typography>
-        </Cardhead>
-        <CardBody>
+        <GridContainer
+          style={{
+            position: "absolute",
+            right: 100,
+            marginTop: -10,
+            borderWidth: 1,
+            borderColor: "red"
+          }}
+        >
+          <GridItem xs={12} sm={12} md={4} className={classes.textCenter}>
+            <Typography variant="caption" align="left">
+              {/* button color #81408C */}
+              <Button
+                color="white"
+                round={false}
+                style={{ backgroundColor: "#fffff !important" }}
+                onClick={this.OnSubmit}
+              >
+                Publish
+              </Button>
+            </Typography>
+          </GridItem>
+        </GridContainer>
+        <CardBody
+          style={{ paddingTop: 80, paddingLeft: 150, paddingRight: 150 }}
+        >
           <CustomInput
             labelText="Title"
             id="message"
@@ -88,15 +119,15 @@ class PostForm extends React.Component {
             }}
             inputProps={{
               // multiline: true,
-              rows: 5,
+
               value: this.state.title
             }}
             onInputChange={e => {
-              this.setState({ text: e });
+              this.setState({ title: e });
             }}
           />
           <CustomInput
-            labelText="Enter Your Post Here"
+            labelText="Tell Your Story...."
             id="message"
             formControlProps={{
               fullWidth: true,
@@ -104,28 +135,13 @@ class PostForm extends React.Component {
             }}
             inputProps={{
               multiline: true,
-              rows: 5,
+              rows: 50,
               value: this.state.text
             }}
             onInputChange={e => {
               this.setState({ text: e });
             }}
           />
-          <GridContainer>
-            <GridItem xs={12} sm={12} md={4} className={classes.textCenter}>
-              <Typography variant="caption" align="left">
-                {/* button color #81408C */}
-                <Button
-                  color="primary"
-                  round={true}
-                  style={{ backgroundColor: "#81408C !important" }}
-                  onClick={this.OnSubmit}
-                >
-                  Submit
-                </Button>
-              </Typography>
-            </GridItem>
-          </GridContainer>
         </CardBody>
       </CardBody>
     );
@@ -143,7 +159,9 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default withRouter(connect(
-  mapStateToProps,
-  { addPost }
-)(withStyles(headerStyle)(PostForm)));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { addPost }
+  )(withStyles(headerStyle)(PostForm))
+);
