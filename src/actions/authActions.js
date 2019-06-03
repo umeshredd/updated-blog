@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ENDPOINT } from "../api/api";
 import { GET_ERRORS, SET_CURRENT_USER } from "./types";
-
+import {checkLikeService,checkCommentService} from "./postActions"
 // Login - Get User Token
 export const loginUser = userData => dispatch => {
   console.log(`${ENDPOINT}api/users/login`, userData);
@@ -41,6 +41,9 @@ export const loginUser = userData => dispatch => {
       console.log("dispatch Current User");
 
       dispatch(setCurrentUser(token));
+      dispatch(checkLikeService());
+  dispatch(checkCommentService());
+
     })
     .catch(err =>
       dispatch({
