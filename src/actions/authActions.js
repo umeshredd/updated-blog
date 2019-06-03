@@ -8,16 +8,18 @@ export const loginUser = userData => dispatch => {
   if (userData === null) {
     userData = 1;
   }
-  let headers = {};
+  let headers = { "x-username": "test" };
   if (userData === 0) {
     headers = {
-      "Content-Type": "application/json",
-      "X-username": "test"
+      "x-username": "test"
     };
   } else if (userData === 1) {
     headers = {
-      "Content-Type": "application/json",
-      "X-username": "test"
+      "x-username": "Jhon deo"
+    };
+  } else {
+    headers = {
+      "x-username": "Jhon deo"
     };
   }
   axios

@@ -13,10 +13,27 @@ import {
 } from "./types";
 
 // Check server comment
+let userLocal;
+let headers = { "x-username": "test" };
+
+const localUser = localStorage.getItem("currentUser");
+if (localUser !== null || localUser !== undefined) {
+  userLocal = JSON.parse(localUser);
+  console.log(userLocal);
+  if (userLocal.name === "umesh") {
+    headers = {
+      "x-username": "test"
+    };
+  } else if (userLocal.name === "Jhon deo") {
+    headers = {
+      "x-username": "Jhon deo"
+    };
+  }
+}
 
 export const checkLikeService = DATA => dispatch => {
   axios
-    .get(`${LIKEEND}`)
+    .get(`${LIKEEND}`, { headers: headers })
     .then(res => {
       console.log(
         "-------------------check service like----------------------"
@@ -47,7 +64,7 @@ export const checkLikeService = DATA => dispatch => {
 export const checkCommentService = () => dispatch => {
   console.log("comment Serice------");
   axios
-    .get(`${COMMENTEND}`)
+    .get(`${COMMENTEND}`, { headers: headers })
     .then(res => {
       console.log(
         "-------------------check service comment----------------------"
@@ -81,7 +98,7 @@ export const addPost = postData => dispatch => {
   console.log(postData);
   console.log(`${ENDPOINT}api/posts/add`);
   axios
-    .post(`${ENDPOINT}api/posts/add`, postData)
+    .post(`${ENDPOINT}api/posts/add`, postData, { headers: headers })
     .then(res =>
       dispatch({
         type: ADD_POST,
@@ -99,7 +116,7 @@ export const addPost = postData => dispatch => {
 // Get Posts
 export const getPosts = () => dispatch => {
   dispatch(setPostLoading());
-  console.log(`${ENDPOINT}api/posts`);
+  console.log(`${ENDPOINT}api/posts`, { headers: headers });
   axios
     .get(`${ENDPOINT}api/posts`)
     .then(res => {
@@ -121,7 +138,7 @@ export const getPosts = () => dispatch => {
 export const getPost = id => dispatch => {
   dispatch(setPostLoading());
   axios
-    .get(`${ENDPOINT}/api/posts/${id}`)
+    .get(`${ENDPOINT}/api/posts/${id}`, { headers: headers })
     .then(res =>
       dispatch({
         type: GET_POST,
@@ -139,7 +156,7 @@ export const getPost = id => dispatch => {
 // Delete Post
 export const deletePost = id => dispatch => {
   axios
-    .delete(`${ENDPOINT}/api/posts/${id}`)
+    .delete(`${ENDPOINT}/api/posts/${id}`, { headers: headers })
     .then(res =>
       dispatch({
         type: DELETE_POST,
@@ -156,7 +173,7 @@ export const deletePost = id => dispatch => {
 
 // Add Like
 export const addLike = (id, LikeData) => dispatch => {
-  console.log(`${ENDPOINT}api/posts/like/${String(id)}`);
+  console.log(`${ENDPOINT}api/posts/like/${String(id)}`, { headers: headers });
   console.log(LikeData);
   axios
     .post(`${ENDPOINT}api/posts/like/${String(id)}`, LikeData)
@@ -174,7 +191,7 @@ export const addLike = (id, LikeData) => dispatch => {
 export const removeLike = (id, LikeData) => dispatch => {
   console.log(LikeData);
   axios
-    .post(`${ENDPOINT}api/posts/unlike/${id}`, LikeData)
+    .post(`${ENDPOINT}api/posts/unlike/${id}`, LikeData, { headers: headers })
     .then(res => dispatch(getPosts()))
     .catch(err =>
       dispatch({
@@ -191,7 +208,9 @@ export const addComment = (postId, commentData) => dispatch => {
   // return false;
   dispatch(clearErrors());
   axios
-    .post(`${ENDPOINT}api/posts/comment/${String(postId)}`, commentData)
+    .post(`${ENDPOINT}api/posts/comment/${String(postId)}`, commentData, {
+      headers: headers
+    })
     .then(res => dispatch(getPosts()))
     .catch(err =>
       dispatch({
@@ -204,7 +223,9 @@ export const addComment = (postId, commentData) => dispatch => {
 // Delete Comment
 export const deleteComment = (postId, commentId) => dispatch => {
   axios
-    .delete(`${ENDPOINT}api/posts/comment/${postId}/${commentId}`)
+    .delete(`${ENDPOINT}api/posts/comment/${postId}/${commentId}`, {
+      headers: headers
+    })
     .then(res =>
       dispatch({
         type: GET_POST,

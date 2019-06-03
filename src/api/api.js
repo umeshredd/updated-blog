@@ -6,4 +6,7 @@ export const COMMENTEND = "https://cloud-commentend-rdg7uidwzq-uc.a.run.app/";
 //     ENDPOINT,
 //     ENDPOINT_LIKE,
 //     ENDPOINT_COMMENT
-// }
+// // }
+// export const ENDPOINT = "http://34.80.174.41/";
+// export const LIKEEND = "http://34.80.174.41/backend-like";
+// export const COMMENTEND = "http://34.80.174.41/backend-comment";
