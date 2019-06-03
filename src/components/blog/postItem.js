@@ -84,6 +84,7 @@ class PostItem extends Component {
     const { CommentService, LikeService } = service;
     const { showComment } = this.state;
     let img;
+    console.log(post);
     if (post.name === "Fred Jhon") {
       img = img1;
     } else if (post.name === "John Doe") {
@@ -109,7 +110,7 @@ class PostItem extends Component {
                   style={{ width: 60, height: 60 }}
                 />{" "}
                 <span style={{ paddingLeft: 30 }}>
-                  <strong>{post.name}</strong>
+                  <strong>{post.title}</strong>
                   <Typography variant="caption" align="left">
                     {post.text}
                   </Typography>
