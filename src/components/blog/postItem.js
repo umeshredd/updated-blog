@@ -84,12 +84,12 @@ class PostItem extends Component {
     const { CommentService, LikeService } = service;
     const { showComment } = this.state;
     let img;
-    console.log(post);
-    if (post.name === "Fred Jhon") {
+    console.log(post.name);
+    if (post.name === "umesh") {
       img = img1;
-    } else if (post.name === "John Doe") {
+    } else if (post.name === "Jhon deo") {
       img = img2;
-    } else if (post.name === "Alfred Smith") {
+    } else if (post.name === "Fred deo") {
       img = img3;
     } else {
       img = img3;
@@ -110,8 +110,14 @@ class PostItem extends Component {
                   style={{ width: 60, height: 60 }}
                 />{" "}
                 <span style={{ paddingLeft: 30 }}>
-                  <strong>{post.title}</strong>
-                  <Typography variant="caption" align="left">
+                  <strong style={{ fontSize: 16, color: "#000000c7" }}>
+                    {post.title}
+                  </strong>
+                  <Typography
+                    variant="caption"
+                    align="left"
+                    style={{ paddingTop: 10 }}
+                  >
                     {post.text}
                   </Typography>
                 </span>

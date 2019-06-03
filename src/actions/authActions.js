@@ -8,8 +8,20 @@ export const loginUser = userData => dispatch => {
   if (userData === null) {
     userData = 1;
   }
+  let headers = {};
+  if (userData === 0) {
+    headers = {
+      "Content-Type": "application/json",
+      "X-username": "test"
+    };
+  } else if (userData === 1) {
+    headers = {
+      "Content-Type": "application/json",
+      "X-username": "test"
+    };
+  }
   axios
-    .get(`${ENDPOINT}api/users/login/${userData}`)
+    .get(`${ENDPOINT}api/users/login/${userData}`, { headers: headers })
     .then(res => {
       const token = {
         id: res.data._id,

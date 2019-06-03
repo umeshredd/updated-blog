@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import { withRouter } from 'react-router-dom'
+import { withRouter } from "react-router-dom";
 
-// import Menu from "@material-ui/core/Menu";
-// import MenuItem from "@material-ui/core/MenuItem";
-// import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Search from "@material-ui/icons/Search";
 import NotificationsNone from "@material-ui/icons/NotificationsNone";
 import Add from "@material-ui/icons/Add";
@@ -87,7 +87,7 @@ class RightLinks extends React.Component {
     }
     return (
       <div>
-        {/* <ClickAwayListener onClickAway={this.handleClose}>
+        <ClickAwayListener onClickAway={this.handleClose}>
           <Menu
             id="long-menu"
             anchorEl={anchorEl}
@@ -120,7 +120,7 @@ class RightLinks extends React.Component {
               </MenuItem>
             ))}
           </Menu>
-        </ClickAwayListener> */}
+        </ClickAwayListener>
         <Typography
           variant="overline"
           inline={true}
@@ -138,9 +138,8 @@ class RightLinks extends React.Component {
                 marginRight: 15
               }}
             >
-              <div style={{ display: 'flex' }}>
+              <div style={{ display: "flex" }}>
                 <Link to="/PostForm">
-
                   <Typography
                     variant="caption"
                     align="center"
@@ -149,10 +148,8 @@ class RightLinks extends React.Component {
                     <Add className={classes.icons} />
                     Add Story{" "}
                   </Typography>
-
                 </Link>
               </div>
-
             </Button>
             <Search className={classes.icons} style={{ marginRight: 15 }} />
             <NotificationsNone
@@ -166,7 +163,7 @@ class RightLinks extends React.Component {
               className={classes.bigAvatar}
               style={{ width: 30, height: 30, marginRight: 5 }}
             />
-            {/* <Button
+            <Button
               color="transparent"
               aria-label="More"
               aria-owns={open ? "long-menu" : undefined}
@@ -178,7 +175,7 @@ class RightLinks extends React.Component {
               <Typography variant="caption">
                 <MoreVertIcon className={classes.icons} />
               </Typography>
-            </Button> */}
+            </Button>
           </span>
         </Typography>
       </div>
@@ -191,7 +188,9 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default withRouter(connect(
-  mapStateToProps,
-  { loginUser, logoutUser }
-)(withStyles(headerLinksStyle)(RightLinks)));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { loginUser, logoutUser }
+  )(withStyles(headerLinksStyle)(RightLinks))
+);
