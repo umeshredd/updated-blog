@@ -84,7 +84,7 @@ class RightLinks extends React.Component {
 
     if (this.props.auth.reloaded) {
       this.setState({ loading: false });
-      // this.props.history.goback();
+       window.location.reload()
       console.log(this.props);
     }
   }
