@@ -1,21 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import CustomInput from "../CustomInput/CustomInput";
-import Button from "../CustomButtons/Button";
-import GridContainer from "../Grid/GridContainer";
-import GridItem from "../Grid/GridItem";
-import Typography from "@material-ui/core/Typography";
 import { withRouter } from "react-router-dom";
 
-import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+import MenuIcon from "@material-ui/icons/Sms";
 import Add from "@material-ui/icons/Add";
-import DirectionsIcon from "@material-ui/icons/Directions";
 
 import { addComment } from "../../actions/postActions";
 const classes = {
@@ -42,8 +35,7 @@ class CommentForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: "",
-      errors: {}
+      text: ""
     };
   }
 

@@ -36,10 +36,7 @@ class Header extends React.Component {
     });
   }
 
-  
-
   componentDidMount() {
-
     if (this.props.changeColorOnScroll) {
       window.addEventListener("scroll", this.headerColorChange);
     }
@@ -74,7 +71,6 @@ class Header extends React.Component {
       color,
       rightLinks,
       leftLinks,
-      brand,
       fixed,
       absolute
     } = this.props;
@@ -86,7 +82,7 @@ class Header extends React.Component {
     });
     const brandComponent = (
       <Button className={classes.title}>
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: "flex" }}>
           <Add
             className={classes.icons}
             style={{ fontWeight: "800", color: "#a567a4", fontSize: 30 }}
@@ -115,8 +111,8 @@ class Header extends React.Component {
                 {leftLinks}{" "}
               </Hidden>
             ) : (
-                brandComponent
-              )}{" "}
+              brandComponent
+            )}{" "}
           </div>{" "}
           <Hidden smDown implementation="css">
             {" "}
@@ -207,5 +203,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     { loginUser, logoutUser }
-  )
-(withStyles(headerStyle)(Header)));
+  )(withStyles(headerStyle)(Header))
+);

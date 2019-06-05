@@ -1,7 +1,6 @@
 import React from "react";
 import headerStyle from "../../assets/jss/material-kit-react/components/blog/blogStyle";
 import withStyles from "@material-ui/core/styles/withStyles";
-import PostForm from "./PostForm";
 import Spinner from "../common/Spinner";
 import PostFeed from "./postFeed";
 import { connect } from "react-redux";

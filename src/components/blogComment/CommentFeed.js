@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import CommentItem from "./CommentItem";
-import GridContainer from "../Grid/GridContainer";
-import GridItem from "../Grid/GridItem";
-import Typography from "@material-ui/core/Typography";
 
 class CommentFeed extends Component {
   render() {

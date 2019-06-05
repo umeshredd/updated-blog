@@ -8,12 +8,8 @@ import {
   checkCommentService,
   checkLikeService
 } from "../../actions/postActions";
-import { loginUser } from "../../actions/authActions";
-import Store from "../../store/store";
 import CardBody from "../Card/CardBody";
 import Card from "../Card/Card";
-import CardFoot from "../Card/CardFooter";
-import Cardhead from "../Card/CardHeader";
 import headerStyle from "../../assets/jss/material-kit-react/components/blog/blogStyle";
 import { withRouter } from "react-router-dom";
 
@@ -31,7 +27,6 @@ import laoding from "../../assets/img/loading.gif";
 
 const LIKECOLOR = "#3f51b5";
 const UNLIKECOLOR = "#9e9e9e";
-const COMMENTCOLOR = "#3f51b5";
 
 class PostItem extends Component {
   constructor(props) {

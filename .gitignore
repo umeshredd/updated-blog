@@ -9,5 +9,5 @@ yarn-error.log*
 .env.production.local
 
 /node_modules
-.package-lock.*
-.package-lock.json
+package-lock.*
+package-lock.json

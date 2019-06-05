@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Avatar from "@material-ui/core/Avatar";
-import GridContainer from "../Grid/GridContainer";
-import GridItem from "../Grid/GridItem";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import deepOrange from "@material-ui/core/colors/deepOrange";
@@ -42,7 +40,7 @@ class CommentItem extends Component {
   }
 
   render() {
-    const { comment, postId, auth, classes } = this.props;
+    const { comment, classes } = this.props;
     let img;
     if (comment.name === "Fred Jhon") {
       img = img1;

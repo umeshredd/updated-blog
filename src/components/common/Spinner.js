@@ -1,5 +1,4 @@
 import React from "react";
-import spinner from "./spinner.gif";
 import loader from "../../assets/img/g-dots.gif";
 
 export default () => {
