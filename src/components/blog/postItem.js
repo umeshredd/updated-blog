@@ -44,7 +44,7 @@ class PostItem extends Component {
   async componentDidMount() {
       setTimeout(function(){ 
         this.setState({CommentServiceloading:false })
-      }, 2000);
+      }.bind(this), 2000);
     const { post } = this.props;
     if (Object.keys(this.props.token.user).length === 0) {
       // Store.dispatch(loginUser("1"));
@@ -138,8 +138,152 @@ class PostItem extends Component {
   render() {
     const { post, classes, service } = this.props;
     const { CommentService, LikeService } = service;
-    const { showComment, likecolor, likecount, commentcount } = this.state;
+    const { showComment, likecolor, likecount, commentcount,CommentServiceloading } = this.state;
     let img;
+
+    let showComm ;
+    if(CommentServiceloading){
+        showComm =  <div>
+      <img
+          src={laoding}
+          style={{
+            width: 50,
+            height: 50,
+        
+          }}
+        />
+      </div>
+    }
+    else if(LikeService && CommentService){
+       showComm =  
+       <div>
+       <div>
+          <button
+            onClick={this.onLikeClick.bind(this, post)}
+            type="button"
+            className="btn btn-light mr-1"
+          >
+            <ThumbUp
+              className={classes.icons}
+              style={{
+                color: likecolor
+              }}
+            />
+          </button>
+          <Typography
+            variant="subheading"
+            inline={true}
+            color="primary"
+          >
+            {likecount}
+          </Typography>
+
+          {/* <button
+            onClick={this.onUnlikeClick.bind(this, post._id)}
+            type="button"
+            className="btn btn-light mr-1"
+          /> */}
+        </div>
+       
+      
+        <div>
+          <Typography
+            variant="caption"
+            inline={true}
+            align="right"
+            color="primary"
+            style={{
+              cursor: "pointer",
+            
+            }}
+            onClick={this.OnCommentButton}
+          >
+            <Typography
+              variant="subheading"
+              inline={true}
+              color="primary"
+              style={{
+                position: "relative",
+                top: -9,
+                paddingRight: 10
+              }}
+            >
+              {commentcount}
+            </Typography>
+            <InsertComment
+              className={classes.icons}
+              style={{
+                color: "#424242"
+              }}
+            />
+          </Typography>
+          </div>
+
+        </div>
+     }
+     else if(LikeService){
+      showComm =  <div>
+      <button
+        onClick={this.onLikeClick.bind(this, post)}
+        type="button"
+        className="btn btn-light mr-1"
+      >
+        <ThumbUp
+          className={classes.icons}
+          style={{
+            color: likecolor
+          }}
+        />
+      </button>
+      <Typography
+        variant="subheading"
+        inline={true}
+        color="primary"
+      >
+        {likecount}
+      </Typography>
+
+      {/* <button
+        onClick={this.onUnlikeClick.bind(this, post._id)}
+        type="button"
+        className="btn btn-light mr-1"
+      /> */}
+    </div>
+     }
+     else if(CommentService){
+      showComm =    <div>
+      <Typography
+        variant="caption"
+        inline={true}
+        align="right"
+        color="primary"
+        style={{
+          cursor: "pointer",
+        
+        }}
+        onClick={this.OnCommentButton}
+      >
+        <Typography
+          variant="subheading"
+          inline={true}
+          color="primary"
+          style={{
+            position: "relative",
+            top: -9,
+            paddingRight: 10
+          }}
+        >
+          {commentcount}
+        </Typography>
+        <InsertComment
+          className={classes.icons}
+          style={{
+            color: "#424242"
+          }}
+        />
+      </Typography>
+      </div>
+    }
     // console.log(post.name);
     if (post.name === "umesh") {
       img = img1;
@@ -158,8 +302,9 @@ class PostItem extends Component {
               style={{
                 display: "flex",
                 padding: 15,
+                marginBottom:15,
                 alignItems: "center",
-                borderBottom: "1px solid #9e9e9e"
+                borderBottom: "1px solid rgba(158, 158, 158, 0.22)"
               }}
             >
               <Avatar
@@ -181,96 +326,11 @@ class PostItem extends Component {
                 </Typography>
               </span>
             </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              {CommentServiceloading && (
-                <img
-                  src={laoding}
-                  style={{
-                    width: 50,
-                    height: 50,
-                    position: "relative",
-                    top: 6,
-                    right: 0
-                  }}
-                />
-              )}
-
-              {LikeService ? (
-                <div>
-                  <button
-                    onClick={this.onLikeClick.bind(this, post)}
-                    type="button"
-                    className="btn btn-light mr-1"
-                  >
-                    <ThumbUp
-                      className={classes.icons}
-                      style={{
-                        color: likecolor
-                      }}
-                    />
-                  </button>
-                  <Typography
-                    variant="subheading"
-                    inline={true}
-                    color="primary"
-                  >
-                    {likecount}
-                  </Typography>
-
-                  {/* <button
-                    onClick={this.onUnlikeClick.bind(this, post._id)}
-                    type="button"
-                    className="btn btn-light mr-1"
-                  /> */}
-                </div>
-              ) : null}
-              {CommentServiceloading && (
-                <img
-                  src={laoding}
-                  style={{
-                    width: 50,
-                    height: 50,
-                    position: "relative",
-                    top: -45,
-                    right: -77
-                  }}
-                />
-              )}
-              {CommentService ? (
-                <div>
-                  <Typography
-                    variant="caption"
-                    inline={true}
-                    align="right"
-                    color="primary"
-                    style={{
-                      cursor: "pointer",
-                      position: "relative",
-                      top: -33,
-                      right: -100
-                    }}
-                    onClick={this.OnCommentButton}
-                  >
-                    <Typography
-                      variant="subheading"
-                      inline={true}
-                      color="primary"
-                      style={{
-                        position: "relative",
-                        top: -9,
-                        paddingRight: 10
-                      }}
-                    >
-                      {commentcount}
-                    </Typography>
-                    <InsertComment
-                      className={classes.icons}
-                      style={{
-                        color: "#424242"
-                      }}
-                    />
-                  </Typography>
-                  {showComment ? (
+            <div style={{ display: "flex", flexDirection: "column", marginTop:20 }}>
+            
+  
+            {showComm}
+            {showComment ? (
                     <CommentForm
                       postId={post._id}
                       submited={() =>
@@ -281,8 +341,6 @@ class PostItem extends Component {
                       }
                     />
                   ) : null}
-                </div>
-              ) : null}
             </div>
             <div style={{ paddingLeft: 10 }}>
               <CommentFeed postId={post._id} comments={post.comments} />

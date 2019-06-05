@@ -124,7 +124,7 @@ class RightLinks extends React.Component {
         <img src={Loader} style={{ width: "100%", heght: "100%" }} />
       </Modal>
     ) : (
-      <div style={{ position: "absolute", left: "90%", top: -23 }}>
+      <div >
         <ClickAwayListener onClickAway={this.handleClose}>
           <Menu
             id="long-menu"

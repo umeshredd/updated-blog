@@ -100,7 +100,7 @@ class Header extends React.Component {
           height: 60
         }}
       >
-        <Toolbar className={classes.container}>
+        <Toolbar className={classes.container} style={{maxWidth:'100%'}}>
           {" "}
           {leftLinks !== undefined ? brandComponent : null}{" "}
           <div className={classes.flex}>
