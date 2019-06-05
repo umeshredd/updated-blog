@@ -36,11 +36,15 @@ class PostItem extends Component {
       liked: null,
       likecolor: UNLIKECOLOR,
       likecount: 0,
-      commentcount: 0
+      commentcount: 0,
+      CommentServiceloading:true,
     };
   }
 
   async componentDidMount() {
+      setTimeout(function(){ 
+        this.setState({CommentServiceloading:false })
+      }, 2000);
     const { post } = this.props;
     if (Object.keys(this.props.token.user).length === 0) {
       // Store.dispatch(loginUser("1"));
@@ -59,7 +63,7 @@ class PostItem extends Component {
       commentcount
     });
   }
-
+  
   async onLikeClick(id) {
     if (this.state.liked) {
       this.onUnlikeClick(id);
@@ -178,7 +182,7 @@ class PostItem extends Component {
               </span>
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              {!LikeService && (
+              {CommentServiceloading && (
                 <img
                   src={laoding}
                   style={{
@@ -220,7 +224,7 @@ class PostItem extends Component {
                   /> */}
                 </div>
               ) : null}
-              {!CommentService && (
+              {CommentServiceloading && (
                 <img
                   src={laoding}
                   style={{
