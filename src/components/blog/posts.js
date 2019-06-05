@@ -17,11 +17,17 @@ import {
 import CardBody from "../Card/CardBody";
 
 class Posts extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true
+    };
+  }
   componentDidMount() {
     // check for user auth
     const usrLen = Object.keys(this.props.token.user).length;
     if (usrLen === 0) {
-      this.props.loginUser("1");
+      // this.props.loginUser();
     }
 
     // get all the posts
@@ -39,22 +45,34 @@ class Posts extends React.Component {
     // load spinner else load the post
     const { classes, post } = this.props;
     const { posts, loading } = post;
-    let checkd = false;
-    let postContents;
-
-    if (posts === null && loading) {
-      postContents = <Spinner />;
-    }
-    if (typeof posts === "Array" && posts.length < 1) {
-      postContents = <Spinner />;
-    } else {
-      checkd = true;
+    let postContents = <Spinner />;
+    // const NoPost = () => (
+    //   <div>
+    //     <span>There are No Posts Please Create one</span>
+    //   </div>
+    // );
+    if (typeof posts === "object" && Object.keys("posts").length > 0) {
       postContents = (
-        <CardBody>
+        <CardBody style={{ paddingTop: 0, paddingBottom: 0 }}>
           <PostFeed posts={posts} />
         </CardBody>
       );
+    } else if (typeof posts === "object" && Object.keys("posts").length === 0) {
+      postContents = <Spinner />;
     }
+    // if (loading) {
+    //   postContents = <Spinner />;
+    // } else if (!loading) {
+    //   if (typeof posts === "object") {
+    //     postContents = (
+    //       <CardBody style={{ paddingTop: 0, paddingBottom: 0 }}>
+    //         <PostFeed posts={posts} />
+    //       </CardBody>
+    //     );
+    //   } else {
+    //     postContents = <Spinner />;
+    //   }
+    // }
     return (
       <div className={classes.container}>
         <Post />

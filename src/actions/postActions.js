@@ -17,7 +17,8 @@ let userLocal;
 let headers = { "x-username": "test" };
 
 const localUser = localStorage.getItem("currentUser");
-if (localUser !== null || localUser !== undefined) {
+
+if (localUser !== null && localUser !== undefined) {
   userLocal = JSON.parse(localUser);
   console.log(userLocal);
   if (userLocal.name === "umesh") {
@@ -31,14 +32,15 @@ if (localUser !== null || localUser !== undefined) {
   }
 }
 
+// console.log(`${LIKEEND}`, { headers: headers })
 export const checkLikeService = DATA => dispatch => {
   axios
     .get(`${LIKEEND}`, { headers: headers })
     .then(res => {
-      console.log(
-        "-------------------check service like----------------------"
-      );
-      console.log(res);
+      // console.log(
+      //   "-------------------check service like----------------------"
+      // );
+      // console.log(res);
       if (res.status === 200) {
         dispatch({
           type: CHECK_LIKE_SERVICE,
@@ -47,14 +49,14 @@ export const checkLikeService = DATA => dispatch => {
       } else if (res === undefined) {
         dispatch({
           type: CHECK_LIKE_SERVICE,
-          payload: null
+          payload: false
         });
       }
     })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
-        payload: null
+        payload: false
       })
     );
 };
@@ -62,14 +64,14 @@ export const checkLikeService = DATA => dispatch => {
 // Check server comment
 
 export const checkCommentService = () => dispatch => {
-  console.log("comment Serice------");
+  // console.log("comment Serice------");
   axios
     .get(`${COMMENTEND}`, { headers: headers })
     .then(res => {
-      console.log(
-        "-------------------check service comment----------------------"
-      );
-      console.log(res);
+      // console.log(
+      //   "-------------------check service comment----------------------"
+      // );
+      // console.log(res);
       if (res.status === 200) {
         dispatch({
           type: CHECK_COMMENT_SERVICE,
@@ -79,7 +81,7 @@ export const checkCommentService = () => dispatch => {
       if (res === undefined) {
         dispatch({
           type: CHECK_COMMENT_SERVICE,
-          payload: null
+          payload: false
         });
       }
     })
@@ -92,13 +94,13 @@ export const checkCommentService = () => dispatch => {
 };
 
 // Add Post
-export const addPost = postData => dispatch => {
+export const addPost = (postData, headers) => dispatch => {
   dispatch(clearErrors());
 
-  console.log(postData);
-  console.log(`${ENDPOINT}api/posts/add`);
+  // console.log(postData);
+  // console.log(`${ENDPOINT}api/posts/add`);
   axios
-    .post(`${ENDPOINT}api/posts/add`, postData, { headers: headers })
+    .post(`${ENDPOINT}api/posts/add`, postData, { headers: { ...headers } })
     .then(res =>
       dispatch({
         type: ADD_POST,
@@ -116,11 +118,11 @@ export const addPost = postData => dispatch => {
 // Get Posts
 export const getPosts = () => dispatch => {
   dispatch(setPostLoading());
-  console.log(`${ENDPOINT}api/posts`, { headers: headers });
+  // console.log(`${ENDPOINT}api/posts`, { headers: headers });
   axios
     .get(`${ENDPOINT}api/posts`)
     .then(res => {
-      console.log(res);
+      // console.log(res);
       dispatch({
         type: GET_POSTS,
         payload: res.data
@@ -128,8 +130,8 @@ export const getPosts = () => dispatch => {
     })
     .catch(err =>
       dispatch({
-        type: GET_POSTS,
-        payload: null
+        type: GET_ERRORS,
+        payload: err
       })
     );
 };
@@ -147,8 +149,8 @@ export const getPost = id => dispatch => {
     )
     .catch(err =>
       dispatch({
-        type: GET_POST,
-        payload: null
+        type: GET_ERRORS,
+        payload: err
       })
     );
 };
@@ -172,14 +174,20 @@ export const deletePost = id => dispatch => {
 };
 
 // Add Like
-export const addLike = (id, LikeData) => dispatch => {
-  console.log(`${ENDPOINT}api/posts/like/${String(id)}`, { headers: headers });
+export const addLike = (id, LikeData, headers) => dispatch => {
+  console.log(id._id);
   console.log(LikeData);
+
+  console.log(`${ENDPOINT}api/posts/like/${String(id._id)}`, {
+    headers: { ...headers }
+  });
   axios
-    .post(`${ENDPOINT}api/posts/like/${String(id)}`, LikeData)
+    .post(`${ENDPOINT}api/posts/like/${String(id._id)}`, LikeData, {
+      headers: headers
+    })
     .then(res => dispatch(getPosts()))
     .catch(err => {
-      console.log(err);
+      // console.log(err);
       dispatch({
         type: GET_ERRORS,
         payload: err
@@ -188,15 +196,17 @@ export const addLike = (id, LikeData) => dispatch => {
 };
 
 // Remove Like
-export const removeLike = (id, LikeData) => dispatch => {
-  console.log(LikeData);
+export const removeLike = (id, LikeData, headers) => dispatch => {
+  // console.log(LikeData);
   axios
-    .post(`${ENDPOINT}api/posts/unlike/${id}`, LikeData, { headers: headers })
+    .post(`${ENDPOINT}api/posts/unlike/${id._id}`, LikeData, {
+      headers: { ...headers }
+    })
     .then(res => dispatch(getPosts()))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err
       })
     );
 };

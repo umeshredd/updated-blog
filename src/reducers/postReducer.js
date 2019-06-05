@@ -13,7 +13,7 @@ const initialState = {
   post: {},
   CommentService: false,
   LikeService: false,
-  loading: false
+  loading: true
 };
 
 export default function(state = initialState, action) {

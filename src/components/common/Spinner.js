@@ -1,12 +1,14 @@
-import React from 'react';
-import spinner from './spinner.gif';
+import React from "react";
+import spinner from "./spinner.gif";
+import loader from "../../assets/img/g-dots.gif";
 
 export default () => {
   return (
-    <div>
+    <div style={{ marginTop: 150, textAlign: "center" }}>
+      <span>Please wait loading the posts...</span>
       <img
-        src={spinner}
-        style={{ width: '200px', margin: 'auto', display: 'block' }}
+        src={loader}
+        style={{ width: "200px", margin: "auto", display: "block" }}
         alt="Loading..."
       />
     </div>

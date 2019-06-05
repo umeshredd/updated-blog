@@ -12,6 +12,9 @@ import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
 import Drawer from "@material-ui/core/Drawer";
 import Add from "@material-ui/icons/Add";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { loginUser, logoutUser } from "../../actions/authActions";
 
 // @material-ui/icons
 import Menu from "@material-ui/icons/Menu";
@@ -32,7 +35,11 @@ class Header extends React.Component {
       mobileOpen: !this.state.mobileOpen
     });
   }
+
+  
+
   componentDidMount() {
+
     if (this.props.changeColorOnScroll) {
       window.addEventListener("scroll", this.headerColorChange);
     }
@@ -191,4 +198,14 @@ Header.propTypes = {
   })
 };
 
-export default withStyles(headerStyle)(Header);
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { loginUser, logoutUser }
+  )
+(withStyles(headerStyle)(Header)));

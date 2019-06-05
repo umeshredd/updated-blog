@@ -3,7 +3,6 @@ import CardBody from "../Card/CardBody";
 import Cardhead from "../Card/CardHeader";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
-import { PermIdentity } from "@material-ui/icons";
 import CustomInput from "../CustomInput/CustomInput";
 import Button from "../CustomButtons/Button";
 import GridContainer from "../Grid/GridContainer";
@@ -22,6 +21,8 @@ import Header from "./../header/header";
 
 import headerStyle from "../../assets/jss/material-kit-react/components/blog/blogStyle";
 
+const WIDTH = window.innerWidth;
+
 class PostForm extends React.Component {
   constructor(props) {
     super(props);
@@ -32,31 +33,28 @@ class PostForm extends React.Component {
     };
   }
 
-  OnSubmit = () => {
-    let user = this.props.auth;
-    console.log(this.props);
+  OnSubmit = async () => {
+    let storedUser = await JSON.parse(localStorage.getItem("currentUser"));
+
     if (String(this.state.text).trim() === "") {
+      alert("Post is empty Please add a post");
       return false;
     } else {
-      if (Object.keys(user).length === 0) {
-        const localUser = localStorage.getItem("currentUser");
-        if (localUser !== null || localUser !== undefined) {
-          user = JSON.parse(localUser);
-          console.log(user);
-        }
+      if (storedUser !== null) {
+        const newPost = {
+          text: this.state.text,
+          title: this.state.title,
+          name: storedUser.name,
+          avatar: storedUser.avatar,
+          id: storedUser.id
+        };
+
+        this.props.addPost(newPost);
+        this.setState({ text: "", title: "" });
+        this.props.history.push("/");
+      } else {
+        alert("Please Login");
       }
-
-      const newPost = {
-        text: this.state.text,
-        title: this.state.title,
-        name: user.name,
-        avatar: user.avatar,
-        id: user.id
-      };
-
-      this.props.addPost(newPost);
-      this.setState({ text: "", title: "" });
-      this.props.history.push("/");
     }
   };
 
@@ -75,75 +73,78 @@ class PostForm extends React.Component {
     }
 
     return (
-      <CardBody style={{ padding: 0 }}>
-        <Header />
-        <HeaderMenu />
-        <div>
+      <div>
+        {" "}
+        <div style={{ width: WIDTH }}>
           <img
             src={blog}
             style={{ width: "100%", position: "absolute", top: 130 }}
           />
         </div>
-        <GridContainer
-          style={{
-            position: "absolute",
-            right: 100,
-            marginTop: -10,
-            borderWidth: 1,
-            borderColor: "red"
-          }}
-        >
-          <GridItem xs={12} sm={12} md={4} className={classes.textCenter}>
-            <Typography variant="caption" align="left">
-              {/* button color #81408C */}
-              <Button
-                color="white"
-                round={false}
-                style={{ backgroundColor: "#fffff !important" }}
-                onClick={this.OnSubmit}
-              >
-                Publish
-              </Button>
-            </Typography>
-          </GridItem>
-        </GridContainer>
-        <CardBody
-          style={{ paddingTop: 80, paddingLeft: 150, paddingRight: 150 }}
-        >
-          <CustomInput
-            labelText="Title"
-            id="message"
-            formControlProps={{
-              fullWidth: true,
-              className: classes.textArea
-            }}
-            inputProps={{
-              // multiline: true,
+        <CardBody style={{ maxWidth: WIDTH }}>
+          <Header />
+          <HeaderMenu />
 
-              value: this.state.title
+          <GridContainer
+            style={{
+              position: "absolute",
+              right: 100,
+              marginTop: -10,
+              top: 180
             }}
-            onInputChange={e => {
-              this.setState({ title: e });
-            }}
-          />
-          <CustomInput
-            labelText="Tell Your Story...."
-            id="message"
-            formControlProps={{
-              fullWidth: true,
-              className: classes.textArea
-            }}
-            inputProps={{
-              multiline: true,
-              rows: 50,
-              value: this.state.text
-            }}
-            onInputChange={e => {
-              this.setState({ text: e });
-            }}
-          />
+          >
+            <GridItem xs={12} sm={12} md={4} className={classes.textCenter}>
+              <Typography variant="caption" align="left">
+                {/* button color #81408C */}
+                <Button
+                  color="white"
+                  round={false}
+                  style={{ backgroundColor: "#fffff !important" }}
+                  onClick={this.OnSubmit}
+                >
+                  Publish
+                </Button>
+              </Typography>
+            </GridItem>
+          </GridContainer>
+          <CardBody
+            style={{ marginTop: 130, paddingLeft: 150, paddingRight: 150 }}
+          >
+            <CustomInput
+              labelText="Title"
+              id="message"
+              formControlProps={{
+                fullWidth: true,
+                className: classes.textArea
+              }}
+              inputProps={{
+                // multiline: true,
+
+                value: this.state.title
+              }}
+              onInputChange={e => {
+                this.setState({ title: e });
+              }}
+            />
+            <CustomInput
+              labelText="Tell Your Story...."
+              id="message"
+              formControlProps={{
+                fullWidth: true,
+                className: classes.textArea
+              }}
+              inputProps={{
+                multiline: true,
+                rows: 50,
+                value: this.state.text
+              }}
+              onInputChange={e => {
+                this.setState({ text: e });
+              }}
+            />
+          </CardBody>
         </CardBody>
-      </CardBody>
+      </div>
     );
   }
 }

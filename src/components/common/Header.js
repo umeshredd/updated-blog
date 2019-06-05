@@ -1,13 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+const MenuColor = "#a567a4";
 export default () => (
   <div
-    style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}
+    style={{ display: "flex", flexDirection: "row", justifyContent: "left" }}
   >
-    <ul style={{ display: "flex", marginBottom: 80 }}>
+    <ul
+      style={{ display: "flex", marginBottom: 20, fontSize: "15px !important" }}
+    >
       <li style={{ listStyle: "none", padding: "0 10px" }}>
-        <a href="/" style={{ color: "#b8a5b4", fontWeight: 600 }}>
-          HOME
-        </a>
+        <Link to="/">
+          <span style={{ color: MenuColor, fontWeight: 600 }}>HOME</span>
+        </Link>
       </li>
       <li style={{ listStyle: "none", padding: "0 10px" }}>
         <a href="/" style={{ color: "#c1c1c1", fontWeight: 600 }}>

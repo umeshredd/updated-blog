@@ -6,12 +6,38 @@ import Button from "../CustomButtons/Button";
 import GridContainer from "../Grid/GridContainer";
 import GridItem from "../Grid/GridItem";
 import Typography from "@material-ui/core/Typography";
+import { withRouter } from "react-router-dom";
 
-import withStyles from "@material-ui/core/styles/withStyles";
-import headerStyle from "../../assets/jss/material-kit-react/components/blog/blogStyle";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import InputBase from "@material-ui/core/InputBase";
+import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import Add from "@material-ui/icons/Add";
+import DirectionsIcon from "@material-ui/icons/Directions";
 
 import { addComment } from "../../actions/postActions";
-
+const classes = {
+  root: {
+    padding: "2px 4px",
+    display: "flex",
+    alignItems: "center",
+    width: 400
+  },
+  input: {
+    marginLeft: 8,
+    flex: 1
+  },
+  iconButton: {
+    padding: 10
+  },
+  divider: {
+    width: 1,
+    height: 28,
+    margin: 4
+  }
+};
 class CommentForm extends Component {
   constructor(props) {
     super(props);
@@ -19,9 +45,6 @@ class CommentForm extends Component {
       text: "",
       errors: {}
     };
-
-    // this.onChange = this.onChange.bind(this);
-    // this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
@@ -30,20 +53,27 @@ class CommentForm extends Component {
     }
   }
 
-  commentSubmit = e => {
-    const { user } = this.props.auth;
-    const { postId } = this.props;
+  commentSubmit = async e => {
+    if (this.state.text.trim() === "") {
+      alert("Comment is empty please add one");
+      return false;
+    }
+    let storedUser = await JSON.parse(localStorage.getItem("currentUser"));
+    if (storedUser !== null) {
+      const { postId } = this.props;
+      const newComment = {
+        text: this.state.text,
+        name: storedUser.name,
+        avatar: storedUser.avatar,
+        id: storedUser.id
+      };
 
-    const newComment = {
-      text: this.state.text,
-      name: user.name,
-      avatar: user.avatar,
-      id: user.id
-    };
-
-    this.props.addComment(postId, newComment);
-    this.setState({ text: "" });
-    this.props.submited(true);
+      this.props.addComment(postId, newComment);
+      this.setState({ text: "" });
+      this.props.submited(true);
+    } else {
+      alert("Please Login");
+    }
   };
 
   onChange = e => {
@@ -52,48 +82,30 @@ class CommentForm extends Component {
 
   render() {
     const { errors } = this.state;
-    const { classes } = this.props;
     return (
-      <div className="post-form mb-3">
-        <div className="card card-info">
-          <div className="card-body">
-            <div className="form-group">
-              <CustomInput
-                onInputChange={e => {
-                  this.setState({ text: e });
-                }}
-                labelText="Enter Your Message Here"
-                id="message"
-                formControlProps={{
-                  fullWidth: true,
-                  className: classes.text
-                }}
-                inputProps={{
-                  multiline: true,
-                  type: "text",
-                  rows: 2,
-                  value: this.state.text
-                }}
-              />
-            </div>
-            <GridContainer>
-              <GridItem xs={12} sm={12} md={4} className={classes.textCenter}>
-                <Typography variant="caption" align="left">
-                  {/* button color #81408C */}
-                  <Button
-                    color="primary"
-                    round={true}
-                    style={{ backgroundColor: "#81408C !important" }}
-                    onClick={this.commentSubmit}
-                  >
-                    Submit
-                  </Button>
-                </Typography>
-              </GridItem>
-            </GridContainer>
-          </div>
-        </div>
-      </div>
+      <Paper className={classes.root}>
+        <IconButton className={classes.iconButton} aria-label="Menu">
+          <MenuIcon />
+        </IconButton>
+        <InputBase
+          className={classes.input}
+          placeholder="Add a comment...."
+          inputProps={{ "aria-label": "Add a comment" }}
+          value={this.state.text}
+          onChange={e => {
+            this.setState({ text: e.target.value });
+          }}
+          style={{ width: "80%" }}
+        />
+        <IconButton
+          className={classes.iconButton}
+          aria-label="Search"
+          onClick={this.commentSubmit}
+        >
+          <Add />
+        </IconButton>
+        <Divider className={classes.divider} />
+      </Paper>
     );
   }
 }
@@ -110,7 +122,9 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
-  mapStateToProps,
-  { addComment }
-)(withStyles(headerStyle)(CommentForm));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { addComment }
+  )(CommentForm)
+);

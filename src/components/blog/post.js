@@ -3,8 +3,8 @@ import CardBody from "../Card/CardBody";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { addPost } from "../../actions/postActions";
 import { connect } from "react-redux";
-import blog from "./../../assets/img/banner.png";
-import { withRouter } from 'react-router-dom'
+import blog from "./../../assets/img/banner.jpg";
+import { withRouter } from "react-router-dom";
 
 // import Avatar from "@material-ui/core/Avatar";
 
@@ -25,7 +25,7 @@ class PostHeader extends React.Component {
 
   render() {
     return (
-      <CardBody>
+      <CardBody style={{ paddingTop: 0, paddingBottom: 0 }}>
         <img src={blog} style={{ width: "100%" }} />
       </CardBody>
     );
@@ -37,7 +37,9 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default withRouter(connect(
-  mapStateToProps,
-  { addPost }
-)(withStyles(headerStyle)(PostHeader)));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { addPost }
+  )(withStyles(headerStyle)(PostHeader))
+);
