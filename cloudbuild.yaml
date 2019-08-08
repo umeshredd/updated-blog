@@ -2,6 +2,9 @@ steps:
   # build the container image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/niveusgcp/cloud', '--build-arg', 'URL=${TAG_NAME}', '.']
+  # code coverage sonarqube
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--build-arg', 'SONARQUBE_SCANNER_CLI_VERSION=<>', '-t', 'gcr.io/niveusgcp/sonar-scanner:latest', '-t', 'gcr.io/niveusgcp/sonar-scanner:><', '.']
   # push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/niveusgcp/cloud']
