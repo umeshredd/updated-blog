@@ -1,7 +1,7 @@
 steps:
   #sonar scanner
  - name: 'gcr.io/niveusgcp/sonar-scanner:latest'
-   args: ['-Dsonar.host.url=34.67.147.127:9000', '-Dsonar.login={admin}', '-Dsonar.projectKey={blog}']
+   args: ['-Dsonar.host.url=34.67.147.127:9000', '-Dsonar.login={admin}', '-Dsonar.password={umesh123}', '-Dsonar.projectKey={blog}']
   # build the container image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/niveusgcp/cloud', '--build-arg', 'URL=${TAG_NAME}', '.']
