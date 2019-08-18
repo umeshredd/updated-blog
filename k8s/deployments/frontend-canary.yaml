@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: frontend
+        env: canary
+    spec:
+      containers:
+      - image: gcr.io/niveus-cici-demo/frontend:latest
+        name: frontend
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080

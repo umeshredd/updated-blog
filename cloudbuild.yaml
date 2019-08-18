@@ -1,13 +1,8 @@
 steps:
-  #sonar scanner
-- name: 'gcr.io/notional-radio-240808/sonar-scanner:latest'
-  args: ['-Dsonar.host.url=34.67.147.127:9000', '-Dsonar.login={admin}', '-Dsonar.password={umesh123}', '-Dsonar.projectKey={blog}']
-  # build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/notional-radio-240808/cloud', '--build-arg', 'URL=${TAG_NAME}', '.']
-  # push the container image to Container Registry
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/frontend:$TAG_NAME', '.']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/notional-radio-240808/cloud']
-  # Deploy container image to Cloud Run
-- name: 'gcr.io/cloud-builders/gcloud'
-  args: ['beta','run','deploy','cloud','--image', 'gcr.io/notional-radio-240808/cloud', '--region', 'us-central1', '--quiet']
+  args: ['run', 'gcr.io/$PROJECT_ID/frontend:$TAG_NAME', 'go', 'test']
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['cp', '-r', 'k8s/*', 'gs://$PROJECT_ID-kubernetes-manifests']
+images: ['gcr.io/$PROJECT_ID/frontend:$TAG_NAME']
