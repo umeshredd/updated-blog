@@ -1,8 +1,10 @@
 steps:
+# build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcr.io/$PROJECT_ID/frontend:$TAG_NAME', '.']
+  args: ['build', '-t', 'gcr.io/niveus-cici-demo/cloud', '--build-arg', 'URL=${TAG_NAME}', '.']
+# push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['run', 'gcr.io/$PROJECT_ID/frontend:$TAG_NAME', 'go', 'test']
-- name: 'gcr.io/cloud-builders/gsutil'
-  args: ['cp', '-r', 'k8s/*', 'gs://$PROJECT_ID-kubernetes-manifests']
-images: ['gcr.io/$PROJECT_ID/frontend:$TAG_NAME']
+  args: ['push', 'gcr.io/niveus-cici-demo/cloud']
+# Deploy container image to Cloud Run
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['beta','run','deploy','cloud','--image', 'gcr.io/niveus-cici-demo/cloud', '--region', 'us-central1', '--quiet']
