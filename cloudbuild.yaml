@@ -14,10 +14,10 @@ steps:
   - '-Dsonar.sources=.'
 # build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/niveus-cici-demo/cloud', '--build-arg', 'URL=${TAG_NAME}', '.']
+  args: ['build', '-t', 'gcr.io/niveus-cici-demo/frontend', '--build-arg', 'URL=${TAG_NAME}', '.']
 # push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/niveus-cici-demo/cloud']
+  args: ['push', 'gcr.io/niveus-cici-demo/frontend']
 # Deploy container image to Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['beta','run','deploy','cloud', '--platform=managed', '--image', 'gcr.io/niveus-cici-demo/cloud', '--region', 'us-central1', '--quiet']
+  args: ['beta','run','deploy','frontend', '--platform=managed', '--image', 'gcr.io/niveus-cici-demo/frontend', '--region', 'us-central1', '--quiet']
