@@ -11,7 +11,7 @@ steps:
   - '-Dsonar.login=e5f2827bf0321743ddfa267bd90d0ac0a4273798'
   - '-Dsonar.projectKey=frontend12'
   - '-Dsonar.organization=demo-niveus'
-  - '-Dsonar.sources=.'
+  - '-Dsonar.sources=./coverage'
 # build the container image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/niveus-cici-demo/frontend', '--build-arg', 'URL=${TAG_NAME}', '.']
