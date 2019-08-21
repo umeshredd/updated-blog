@@ -12,7 +12,7 @@
 // export const COMMENTEND = "http://34.80.174.41/backend-comment";
 
 
-export const ENDPOINT = "https://cloud-back-rdg7uidwzq-uc.a.run.app/";
+export const ENDPOINT = "https://frontend-co4yh5777a-uc.a.run.app/";
 export const LIKEEND = "http://35.192.232.226/backend-like/";
 export const COMMENTEND = "http://35.192.232.226/backend-comment/"
 
