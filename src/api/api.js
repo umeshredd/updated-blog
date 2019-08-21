@@ -13,8 +13,8 @@
 
 
 export const ENDPOINT = "https://cloud-back-co4yh5777a-uc.a.run.app/";
-export const LIKEEND = "http://35.192.232.226/backend-like/";
-export const COMMENTEND = "http://35.192.232.226/backend-comment/"
+export const LIKEEND = "35.222.185.135:8080";
+export const COMMENTEND = "35.238.216.232:8080"
 
 
 // http://35.192.232.226/backend-comment
